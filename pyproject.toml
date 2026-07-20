@@ -1,0 +1,14 @@
+[project]
+name = "diffusion-gemma"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "einops>=0.8.2",
+    "huggingface-hub>=1.22.0",
+    "safetensors>=0.8.0",
+    "tokenizers>=0.23.1",
+    "torch>=2.12.1",
+    "tqdm>=4.68.4",
+]
