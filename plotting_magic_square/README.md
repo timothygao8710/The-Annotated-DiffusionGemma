@@ -70,6 +70,3 @@ Let's provide the mathematically balanced grid for these specific numbers:
 ```
 
 I wonder if better schedule / sampling could lead to a better response for this prompt.
-
-(All the Below is For First Canvas)
-
