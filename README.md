@@ -12,7 +12,7 @@ A working knowledge of vanilla autoregressive LLM implementations (Llama 3.1, MO
 
 Prompt: What is the meaning of 67?
 
-Model Response (first canvas): 
+Response (first canvas): 
 
 ```
 The meaning of **67** depends entirely on the context in which it is used (science, mathematics, pop culture, etc.). Here are common interpretations:
@@ -43,7 +43,7 @@ Per-token Entropy vs Denoising Steps ([mp4](demo.mp4)):
 
 ![Per-token Entropy vs Denoising Steps, 67](demo.gif)
 
-More plots for this and other prompts: 
+More plots:
 - [67](plotting_67/README.md)
 - [Sudoku](plotting_sudoku/README.md)
 - [Magic square](plotting_magic_square/README.md)
