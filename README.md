@@ -8,11 +8,9 @@ We present an annotated, from-scratch implementation reimplementation that attem
 
 A working knowledge of vanilla autoregressive LLM implementations (Llama 3.1, MOE) is assumed.
 
-
-
 Prompt: What is the meaning of 67?
 
-Response (first canvas): 
+Response:
 
 ```
 The meaning of **67** depends entirely on the context in which it is used (science, mathematics, pop culture, etc.). Here are common interpretations:
@@ -39,11 +37,56 @@ The meaning of **67** depends entirely on the context in which it is used (scien
 **Is there a specific area (like a dream, a song, or a math problem) where you saw this number?** Providing more context can help me give you a more specific answer.
 ```
 
-Per-token Entropy vs Denoising Steps ([mp4](demo.mp4)):
+## Plots
+
+Tokens are laid out in the canvas in reading order (left to right, top to bottom).
+
+Per-token Entropy vs Denoising Steps ([mp4](plotting_67/canvas_00_entropy_canvas.mp4)):
 
 ![Per-token Entropy vs Denoising Steps, 67](demo.gif)
+
+![Finalized Fraction over time, 67](plotting_67/canvas_00_finalized_fraction.png)
+
+![markov chain transitions, 67](plotting_67/canvas_00_acceptance_transitions.png)
 
 More plots:
 - [67](plotting_67/README.md)
 - [Sudoku](plotting_sudoku/README.md)
 - [Magic square](plotting_magic_square/README.md)
+
+## Table of contents
+
+- [Setup + Load Model](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=3bbb9446)
+  - [Google's Scalar QK Normalization](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=32ad54d8)
+  - [Rotary position embeddings](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=0a474ece)
+- [Attention](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=7f1f6624)
+  - [Gemma-specific details](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=1ccecfe6)
+- [MOE](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=f7513fbc)
+  - [MOE Forward](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=7bf0560d)
+  - [Routing Score](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=0f17f41c)
+  - [RMSNorm Fusion](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=b9a216f6)
+- [Putting Them together](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=b2ad5185)
+  - [Logit Softcapping](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=0b19ec62)
+  - [Encode and Decode modes](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=e258af8b)
+  - [Layer Scalar](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=b702cd2a)
+- [Sampling](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=355920af)
+  - [Lazy Sampling](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=948ea1c9)
+  - [Stage Then Commit](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=ab0b3ee1)
+  - [Plotting](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=e27873eb)
+  - [Next: Tricks for speeding up diffusiongemma inference](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=9e4391a0)
+- [References](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing#scrollTo=ccde51dc)
+
+## Findings
+
+-- X thread --
+
+## How to run
+
+Easiest is [Colab](https://colab.research.google.com/drive/17egFGmboDkhU6duNQHvjB1J0oiKslOMl?usp=sharing). Locally:
+
+```sh
+uv sync
+uv run --with jupyter jupyter lab main.ipynb
+```
+
+The notebook downloads the [weights](https://huggingface.co/google/diffusiongemma-26B-A4B-it) from Hugging Face and runs on CPU in bfloat16 by default. Uncomment the two lines marked "uncomment me to run on GPU" for CUDA.
