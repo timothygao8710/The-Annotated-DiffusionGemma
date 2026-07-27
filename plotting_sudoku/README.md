@@ -35,54 +35,44 @@ Tokens are laid out in the canvas in reading order (left to right, top to bottom
 
 ### Entropy (canvas)
 
-Entropy of each position's predicted token distribution at each denoising step, with the current argmax token overlaid ([mp4](canvas_00_entropy_canvas.mp4)).
+Each cell is colored proportionally to the entropy of that position's predicted token distribution, displaying the argmax token ([mp4](canvas_00_entropy_canvas.mp4)).
 
 ![Entropy canvas](canvas_00_entropy_canvas.gif)
-
-### Entropy (trajectories)
-
-Entropy of each position's predicted token distribution across denoising steps.
 
 ![Entropy trajectories](canvas_00_entropy_trajectories.png)
 
 ### Step-to-step KL (canvas)
 
-KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ at each denoising step — how much each position's distribution changed since the previous step ([mp4](canvas_00_kl_previous_canvas.mp4)).
+KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ at each denoising step ([mp4](canvas_00_kl_previous_canvas.mp4)).
 
 ![Step-to-step KL canvas](canvas_00_kl_previous_canvas.gif)
 
 ### KL to final (canvas)
 
-KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ at each denoising step — how far each position's distribution still is from its final one ([mp4](canvas_00_kl_final_canvas.mp4)).
+KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ at each denoising step ([mp4](canvas_00_kl_final_canvas.mp4)).
 
 ![KL to final canvas](canvas_00_kl_final_canvas.gif)
-
-### KL to final (trajectories)
-
-KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ across denoising steps.
 
 ![KL to final trajectories](canvas_00_kl_final_trajectories.png)
 
 ### Finalization (canvas)
 
-Positions whose argmax token already matches their final token, at each denoising step ([mp4](canvas_00_finalized_canvas.mp4)).
+A position is called "finalized" if its argmax token matches the final decoding step's argmax token at that position ([mp4](canvas_00_finalized_canvas.mp4)).
 
 ![Finalization canvas](canvas_00_finalized_canvas.gif)
 
 ### Finalized fraction
 
-Percentage of positions whose argmax token matches their final token, at each denoising step.
-
 ![Finalized fraction](canvas_00_finalized_fraction.png)
 
 ### Acceptance transitions
 
-Number of positions in each accepted/unaccepted transition of the sampler's entropy-bound acceptance rule, at each denoising step.
+A token is called "accepted" in this step if it is not renoised by the sampler, see the entropy-bound rule in the colab. At each step, a token may transition arbitrarily between the two states $\{\text{accepted}, \text{unaccepted}\}$.
 
 ![Acceptance transitions](canvas_00_acceptance_transitions.png)
 
 ### Position vs. finalization step
 
-Each token's canvas position against the step where it permanently settles on its final token, pooled across all canvases with a linear regression.
+A scatterplot with data pooled across canvases to test: are earlier tokens finalized earlier?
 
 ![Position vs. finalization step](all_canvases_position_finalization_regression.png)

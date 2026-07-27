@@ -79,7 +79,7 @@ Tokens are laid out in the canvas in reading order (left to right, top to bottom
 
 ### Entropy (canvas)
 
-Entropy of each position's predicted token distribution at each denoising step, with the current argmax token overlaid.
+Each cell is colored proportionally to the entropy of that position's predicted token distribution, displaying the argmax token.
 
 **Canvas 0** ([mp4](canvas00/canvas_00_entropy_canvas.mp4))
 
@@ -97,10 +97,6 @@ Entropy of each position's predicted token distribution at each denoising step, 
 
 ![Entropy canvas 3](canvas03/canvas_03_entropy_canvas.gif)
 
-### Entropy (trajectories)
-
-Entropy of each position's predicted token distribution across denoising steps.
-
 ![Entropy trajectories, canvas 0](canvas00/canvas_00_entropy_trajectories.png)
 
 ![Entropy trajectories, canvas 1](canvas01/canvas_01_entropy_trajectories.png)
@@ -111,7 +107,7 @@ Entropy of each position's predicted token distribution across denoising steps.
 
 ### Step-to-step KL (canvas)
 
-KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ at each denoising step — how much each position's distribution changed since the previous step.
+KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ at each denoising step.
 
 **Canvas 0** ([mp4](canvas00/canvas_00_kl_previous_canvas.mp4))
 
@@ -129,10 +125,6 @@ KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ at each denoising step — how much e
 
 ![Step-to-step KL canvas 3](canvas03/canvas_03_kl_previous_canvas.gif)
 
-### Step-to-step KL (trajectories)
-
-KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ across denoising steps.
-
 ![Step-to-step KL trajectories, canvas 0](canvas00/canvas_00_kl_previous_trajectories.png)
 
 ![Step-to-step KL trajectories, canvas 1](canvas01/canvas_01_kl_previous_trajectories.png)
@@ -143,7 +135,7 @@ KL divergence $D_{KL}(p_t \,\|\, p_{t-1})$ across denoising steps.
 
 ### KL to final (canvas)
 
-KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ at each denoising step — how far each position's distribution still is from its final one.
+KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ at each denoising step.
 
 **Canvas 0** ([mp4](canvas00/canvas_00_kl_final_canvas.mp4))
 
@@ -161,10 +153,6 @@ KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ at each denoising step — how far 
 
 ![KL to final canvas 3](canvas03/canvas_03_kl_final_canvas.gif)
 
-### KL to final (trajectories)
-
-KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ across denoising steps.
-
 ![KL to final trajectories, canvas 0](canvas00/canvas_00_kl_final_trajectories.png)
 
 ![KL to final trajectories, canvas 1](canvas01/canvas_01_kl_final_trajectories.png)
@@ -175,7 +163,7 @@ KL divergence $D_{KL}(p_{final} \,\|\, p_t)$ across denoising steps.
 
 ### Finalization (canvas)
 
-Positions whose argmax token already matches their final token, at each denoising step.
+A position is called "finalized" if its argmax token matches the final decoding step's argmax token at that position.
 
 **Canvas 0** ([mp4](canvas00/canvas_00_finalized_canvas.mp4))
 
@@ -195,8 +183,6 @@ Positions whose argmax token already matches their final token, at each denoisin
 
 ### Finalized fraction
 
-Percentage of positions whose argmax token matches their final token, at each denoising step.
-
 ![Finalized fraction, canvas 0](canvas00/canvas_00_finalized_fraction.png)
 
 ![Finalized fraction, canvas 1](canvas01/canvas_01_finalized_fraction.png)
@@ -207,7 +193,7 @@ Percentage of positions whose argmax token matches their final token, at each de
 
 ### Acceptance transitions
 
-Number of positions in each accepted/unaccepted transition of the sampler's entropy-bound acceptance rule, at each denoising step.
+A token is called "accepted" in this step if it is not renoised by the sampler, see the entropy-bound rule in the colab. At each step, a token may transition arbitrarily between the two states $\{\text{accepted}, \text{unaccepted}\}$.
 
 ![Acceptance transitions, canvas 0](canvas00/canvas_00_acceptance_transitions.png)
 
